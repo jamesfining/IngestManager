@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ingest Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
+
+    <style type="text/css">
+      .container {
+        width: 100%;
+        max-width: 5000px;
+        padding-top: 1px;
+      }
+      h2 {color: red;}
+      .form-group {color: white;}
+    </style>
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    {% block imports %}{% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Ingest Manager</a>   {# text at the left of the nav bar #}
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <form class="navbar-form navbar-left" role="search" method="post" action="/"> {# post this form to / #}
+        <div class="form-group">
+          Search Term:
+          <input name="search_request" type="text" class="form-control" placeholder="{{search_local}}" value="{{ nav_state['text'] }}" > {# search box #}
+        </div>
+        <div class="form-group">
+          Filter:
+          <select name="state" class="form-control">    {# filter by #}
+            <option value="Archived" {% if nav_state['type'] == 'Archived' %} Selected {% endif %}>Archived</option>
+            <option value="Removed" {% if nav_state['type'] == 'Removed' %} Selected {% endif %}>Removed</option>
+            <option value="Dropped" {% if nav_state['type'] == 'Dropped' %} Selected {% endif %}>Dropped</option>
+          </select>
+        </div>
+          <div class="form-group">
+            Order:
+          <select name="sort_col" class="form-control">    {# order by #}
+            <option value="MOB ID" {% if nav_state['column'] == 'MOB ID' %} Selected {% endif %}>MOB ID</option>
+            <option value="Display Name" {% if nav_state['column'] == 'Display Name' %} Selected {% endif %}>Display Name</option>
+            <option value="Duration" {% if nav_state['column'] == 'Duration' %} Selected {% endif %}>Duration</option>
+            <option value="Creation Date" {% if nav_state['column'] == 'Creation Date' %} Selected {% endif %}>Creation Date</option>
+            <option value="Modified Date" {% if nav_state['column'] == 'Modified Date' %} Selected {% endif %}>Modified Date</option>
+            <option value="Archived Date" {% if nav_state['column'] == 'Archived Date' %} Selected {% endif %}>Archived Date</option>
+            <option value="Removed Date" {% if nav_state['column'] == 'Removed Date' %} Selected {% endif %}>Removed Date</option>
+          </select>
+        </div>
+          <div class="form-group">
+          <select name="sort_order" class="form-control">    {# order by #}
+            <option value="A" {% if nav_state['order'] == 'A' %} Selected {% endif %}>Ascending</option>
+            <option value="D" {% if nav_state['order'] == 'D' %} Selected {% endif %}>Descending</option>
+          </select>
+        </div>
+        <div class="form-group">
+          Limit:
+          <input name="query_limit" type="number" class="form-control" value="{{ nav_state['limit'] }}" > {# search box #}
+        </div>
+        <div class="form-group">
+          <input type="submit" class="btn btn-default">
+        </div>
+      </form>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+
+    <script>
+
+    </script>
+  </body>
+</html>
+

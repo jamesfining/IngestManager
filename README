@@ -1,0 +1,55 @@
+#####################################
+###### AutoAvid Ingest Manager ######
+#####################################
+
+
+###### Purpose ######
+This program accomplishes two tasks.
+ 1. Automatically archive masterclips
+    a. Only archive masterclips that meet certain criteria
+    b. Archive during hours of low utilization
+ 2. Web App to display masterclips status
+    a. Allow user to filter clips
+    b. Make it easy for the user to identify 'low hanging fruit' that has been archived and is ready to delete
+
+
+###### archive_schedule tasks ######
+Contains archive() - a function that loops through assets that meet our archive criteria
+    - Submits assets to archive
+    - Updates Asset in the DB
+    - Returns when quota is reached
+
+
+###### build_all_tables ######
+Creates ORM for a MySQL DB using SQLAlchemy
+    - Establishes Connection to the DB
+    - Builds 1 table called FilesDropped to hold the assets
+    - Maps table columns to FilesDropped object
+
+
+###### Config ######
+Contains configuration variables for accessing Interplay, the DB, and program behavior variables
+
+
+###### db_schedule_tasks ######
+Contains update_db() - a function that updates and adds assets to the DB
+    - Gets all assets from Interplay
+    - Adds assets to DB
+
+
+###### IngestManager ######
+Flask web app
+    - has route / that returns a page with assets matching filter criteria
+        - takes POST with filter criteria
+
+
+###### interplay_api ######
+Contains functions to interface with Interplay web services
+    - get_assets() gets all assets contained in the INTERPLAY_PATHS
+    - submit_for_archive(asset) takes an asset and submits it to the archive service
+    - check_job_status(asset) checks the status of the job related to the asset
+    - cancel_job(asset) cancels the job related to the asset
+
+
+###### runtime_manager ######
+Handles the Automated services and schedules them to run during hours of low utilization
