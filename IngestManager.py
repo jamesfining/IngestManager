@@ -6,7 +6,7 @@ from config import AUTO_ARCHIVE_MIN_DURATION
 app = Flask(__name__)
 
 
-''' Web app returns a web page with assets according to filter criteria'''
+'''Web app returns a web page with assets according to filter criteria'''
 
 
 def query_filter(state):
@@ -111,4 +111,4 @@ def home():
     return render_template('home.html', assets=results, nav_state=state)
 
 if __name__ == "__main__":
-    app.run(debug=True, port=80)
+    app.run(debug=True, host='0.0.0.0', port=80)

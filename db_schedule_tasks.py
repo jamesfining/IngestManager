@@ -18,6 +18,6 @@ def update_db():
             db_session.merge(fd)
             db_session.commit()
         # gotta catch 'em all
-        except Exception as e:  # todo handle this exception more explicitly (its never been hit so Idk what to expect)
+        except Exception as e:  # handle this exception more explicitly (its never been hit so Idk what to expect)
             print('Something went wrong in update_db ' + str(e))
             db_session.rollback()
